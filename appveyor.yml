@@ -10,9 +10,8 @@ build:
 
 test_script:
 - OpenCover.Console.exe -register -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\MyUnitTests\bin\Debug\MyUnitTests.dll -noshadow" -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:".\MyProject_coverage.xml"
-- ps: Invoke-WebRequest -Uri https://dl.dropboxusercontent.com/s/arbklbtybu5pfm3/csharp-codacy-coverage_win-x64.zip?dl=0 -OutFile csharp-codacy-coverage_win-x64.zip
-- ps: Expand-Archive csharp-codacy-coverage_win-x64.zip -DestinationPath C:\temp\Codacy.CSharpCoverage\
-- ps: C:\temp\Codacy.CSharpCoverage\Codacy.CSharpCoverage.exe -c $env:APPVEYOR_REPO_COMMIT -t $env:CODACY_PROJECT_TOKEN -r MyProject_coverage.xml -e opencover
+- ps: Invoke-WebRequest -Uri https://github.com/codacy/csharp-codacy-coverage/releases/download/$env:CODACY_COVERAGE_VERSION/Codacy.CSharpCoverage_win-x64.exe -OutFile C:\temp\Codacy.CSharpCoverage_win-x64.exe
+- ps: C:\temp\Codacy.CSharpCoverage_win-x64.exe -c $env:APPVEYOR_REPO_COMMIT -t $env:CODACY_PROJECT_TOKEN -r MyProject_coverage.xml -e opencover
 
 artifacts:
   - path: MyProject_coverage.xml
